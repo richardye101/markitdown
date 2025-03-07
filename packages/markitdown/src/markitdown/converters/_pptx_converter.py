@@ -162,8 +162,9 @@ class PptxConverter(DocumentConverter):
                 if shape.shape_type == pptx.enum.shapes.MSO_SHAPE_TYPE.GROUP:
                     for subshape in shape.shapes:
                         get_shape_content(subshape, **kwargs)
-
-            for shape in slide.shapes:
+                        
+            sorted_shapes = sorted(slide.shapes, key=attrgetter('top', 'left'))
+            for shape in sorted_shapes:
                 get_shape_content(shape, **kwargs)
 
             md_content = md_content.strip()
